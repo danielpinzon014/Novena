@@ -15,19 +15,9 @@ const cardsData = [
 ];
 
 const cardContainer = document.getElementById('cardContainer');
-const thankYouMessage = document.getElementById('thankYouMessage');
 const barChartCanvas = document.getElementById('barChart');
 const barChartContext = barChartCanvas.getContext('2d');
 let barChart;
-
-// Cargar la información de votación desde localStorage
-let votesData = JSON.parse(localStorage.getItem('votesData')) || {};
-
-// Verificar si el usuario ya ha votado
-let hasVoted = votesData.hasVoted || false;
-
-// Verificar si se permite votar
-let votingEnabled = !hasVoted;
 
 function renderCards(cards) {
   cardContainer.innerHTML = '';
@@ -38,33 +28,17 @@ function renderCards(cards) {
       <img src="${cardData.image}" alt="Card Image">
       <div class="card-text">${cardData.text}</div>
     `;
-    if (votingEnabled) {
-      card.addEventListener('click', () => handleCardClick(index));
-    } else {
-      card.style.cursor = 'not-allowed';
-    }
+    card.addEventListener('click', () => handleCardClick(index));
     cardContainer.appendChild(card);
   });
 }
 
 function handleCardClick(index) {
-  // Verificar si el usuario puede votar
-  if (votingEnabled) {
-    cardsData[index].count++;
-    updateBarChart();
-    // Marcar que el usuario ha votado
-    votesData.hasVoted = true;
-    // Guardar la información de votación en localStorage
-    localStorage.setItem('votesData', JSON.stringify(votesData));
-    // Deshabilitar el clic en todas las cards después de votar
-    disableCardClick();
-    // Mostrar el mensaje de agradecimiento y la gráfica
-    showThankYouMessage();
-    showBarChart();
-    // Actualizar el estado de votación
-    hasVoted = true;
-    votingEnabled = false;
-  }
+  cardsData[index].count++;
+  updateBarChart();
+  
+  // Enviar el voto al servidor a través de Socket.IO
+  socket.emit('vote', index);
 }
 
 function updateBarChart() {
@@ -97,28 +71,7 @@ function updateBarChart() {
   });
 }
 
-function disableCardClick() {
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-    card.removeEventListener('click', handleCardClick);
-    card.style.cursor = 'not-allowed';
-  });
-}
-
-function showThankYouMessage() {
-  thankYouMessage.style.display = 'block';
-}
-
-function showBarChart() {
-  barChartCanvas.style.display = 'block';
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   renderCards(cardsData);
-  if (hasVoted) {
-    disableCardClick();
-    showThankYouMessage();
-    showBarChart();
-    updateBarChart();
-  }
+  updateBarChart();
 });
