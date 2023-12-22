@@ -25,12 +25,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
     <script>
-        const socket = io(); // Conectar al servidor de Socket.IO
-
-        socket.on('updateVotes', (index) => {
-            // Actualizar la votación en el cliente (puedes implementar tu lógica aquí)
-            console.log(`Card ${index + 1} ha sido votada`);
-        });
+      const socket = io(); // Conectar al servidor de Socket.IO
+  
+      socket.on('updateVotes', (votes) => {
+        // Actualizar la votación en el cliente
+        console.log('Votes updated:', votes);
+      });
+  
+      // Resto de tu lógica del cliente
     </script>
 </body>
 
