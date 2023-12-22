@@ -3,17 +3,19 @@ const http = require('http');
 const socketIO = require('socket.io');
 
 const app = express();
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Permite solicitudes desde cualquier origen
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
 const server = http.createServer(app);
 const io = socketIO(server);
 
 let votes = Array(3).fill(0);
 
 app.use(express.static('public'));
+
+// Middleware para habilitar CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 io.on('connection', (socket) => {
   console.log('Nuevo usuario conectado');
