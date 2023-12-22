@@ -1,0 +1,57 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: rgb(217,204,176);
+background: linear-gradient(280deg, rgba(217,204,176,0.3921113689095128) 0%, rgba(227,198,146,0.2575406032482599) 35%, rgba(217,142,4,0.3225058004640371) 100%);
+}
+
+h1{
+    color:#000000 ;
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    grid-column: 3;
+    grid-row: 4;
+    padding: 20px;
+  }
+  
+  .card {
+    width: 125px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card img {
+    width: 100%;
+    height: 225px;
+    object-fit: cover; /* Añade esta línea */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  .card-text {
+    padding: 15px;
+    text-align: center;
+  }
+
+@media (max-width: 490px) {
+    h1{
+        text-align: center;
+    }
+  }
+
