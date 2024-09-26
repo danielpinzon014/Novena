@@ -2,7 +2,7 @@
   "es": {
     "selec-lng": "SELECCIONE EL IDIOMA",
     "about-h": "Acerca del evento",
-    "about-p": "Hola esto es un parrafo",
+    "about-p": "Hola esto es un parrafo <strong>Agenda</strong>",
     "about-btn": "Esta es la descripción en español",
     "agenda-h": "Esta es la descripción en español 2",
     "speakers-h": "Esta es la descripción en español 2",
